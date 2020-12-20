@@ -159,7 +159,7 @@ func (p Passport) ValidHgt() bool {
 	if len(hgt) < 4 {
 		return false
 	}
-	u := hgt[2:]
+	u := hgt[len(hgt)-2:]
 	v, err := strconv.Atoi(hgt[0 : len(hgt)-2])
 	if err != nil {
 		return false
@@ -201,6 +201,9 @@ func (p Passport) ValidEcl() bool {
 }
 
 func (p Passport) ValidPid() bool {
+	if len(p.pid) != 9 {
+		return false
+	}
 	m, err := regexp.Match(`[0-9]{9}`, []byte(p.pid))
 	if err != nil {
 		return false
